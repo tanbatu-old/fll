@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="fonts/icofont.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flipnote.js/dist/flipnote.js"></script>
+    <link rel="stylesheet" href="fonts/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&amp;family=Sawarabi+Gothic&amp;display=swap" rel="stylesheet">
+	<title>投稿する</title>
+</head>
+<body>
+	<header id="page_top" style="box-shadow:0px 2px 5px 1px gray;">
+		<input id="nav-input" type="checkbox" class="nav-unshown">
+		<label id="nav-open" for="nav-input">
+			<span></span>
+			<span></span>
+			<span></span>
+		 </label>
+		<label class="nav-unshown" id="nav-close" for="nav-input"></label>
+		<div id="nav-content">
+			<div id="nav-menu">
+				 <div>
+					 <img class="menuicon" src="../image/MyBeautifulImage.png" style="width:200px;border-radius: 50%;">
+					 <div class="menuicon">
+						 <p style="color:black;font-size:40px;">Flipper</p>
+						 <p style="font-size:18px;">気まぐれで色々作ってます</p>
+						 <a href="https://twitter.com" style="text-decoration: none; color:#2687e8"><p style="font-size:18px;"><span class="icofont-twitter"></span>@tnsbo</p></a>
+						 <a href="https://github.com/nbatotu" style="text-decoration: none; color:#2687e8"><p style="font-size:18px;"><span class="icofont-github"></span>GitHub</p></a>
+					 </div>
+				 </div>
+			</div>
+		</div>
+		 <h1 id="titletext"><a href="../index.html">Flipper</a></h1>
+		 <ul id="headlist">
+			 <li><a href="../index.html">ホーム</a></li>
+			 <li><a href="upload.html">投稿する</a></li>
+		 </ul>
+	</header>
+	<ul id="messages"></ul>
+	<div id=watch style="display: none;">
+		<div style="padding-top:10px;">
+		<canvas id="player-canvas" width="512" height="384" style="width: 512px; height: 384px;"></canvas>
+		<div class="Slider Player__progressSlider" style="padding-left:20px;padding-right:20px;">
+			<div class="Slider__bar" style="height:10px; background-color: rgb(207, 207, 207);">
+				<div class="Slider__progress" style="left: 0px; width: 14.6392%;height:100%;background-color:#fd7e00">
+				</div>
+				<div class="Slider__handle" style="left: 14.6392%;">
+				</div>
+			</div>
+		</div>
+		<div style="margin-left:22px;height:50px;width:510px;display: flex;">
+			<p style="padding-top:4px;"><i class="icofont-ui-play" style="font-size:25px;color:#fd7e00" onclick="pla()"></i></p>
+			<p style="padding-left:10px;padding-top:5px;color:#fd7e00" class="nowf">ページ数</p>
+			<div style="margin-left:auto;display:flex;">
+				<p style="padding-top:4px;padding-left:20px;"><i class="fas fa-fast-backward" style="font-size:25px;color:#fd7e00" onclick="player.firstFrame()"></i></p>
+				<p style="padding-top:5px;padding-left:20px;"><i class="fas fa-step-backward" style="font-size:22px;color:#fd7e00" onclick="player.prevFrame()"></i></p>
+				<p style="padding-top:5px;padding-left:20px;"><i class="fas fa-step-forward" style="font-size:22px;color:#fd7e00" onclick="player.nextFrame()"></i></p>
+				<p style="padding-top:4px;padding-left:20px;"><i class="fas fa-fast-forward" style="font-size:25px;color:#fd7e00" onclick="player.lastFrame()"></i></p>
+			</div>
+			
+			
+		</div>
+		</div>
+		<div style="padding-top:20px;padding-left:20px;width:50%">
+			
+				<input id="filetitle" placeholder="タイトルを入力" >
+			
+				<input type="button" id="fileup" value="投稿する" style="display:none;"></input>
+		</div>
+	</div>
+	<input style="display:none;" type="file" id="fileInput"></input>
+	
+	
+	<div id="pp">
+	<div  style="position: absolute;z-index: 4;top:0;left:0;background-color:rgba(0, 0, 0, 0.664);width:100%;height:100%"></div>
+	<div id=popup style="display:flex;z-index:5">
+		<div id=drop>
+			<div id="yom"></div>
+			<h3 style="color:white">ここにファイルをドロップ</h3>
+		</div>
+		<div id=drop2>
+			<div style="display: table-cell;vertical-align:middle;">
+			<label for="fileInput"><p id=choosefile><i class="fas fa-file-alt" style="padding:2px;"></i> PPM/KWZ ファイルを選択</p></label>
+			<div style="display:flex;width:30%;margin:0 auto;padding-top:10%;padding-bottom:10%;">
+				<span style="position: relative;height:1px;width:15%;background-color:rgb(141, 141, 141);top:50%"></span>
+				<p style="margin:0 auto;line-height: 0;">OR</p>
+				<span style="position: relative;height:1px;width:15%;background-color:rgb(141, 141, 141);top:50%"></span>
+			</div>
+			<div style="text-align: center;">
+				<input id="urlf" placeholder="タイトルを入力" >
+			</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script>
+	let file
+	var player = new flipnote.player("#player-canvas", 512, 384);
+	let uploading = []
+	var socket = io();
+	let p = false
+    let movec = false
+	socket.on('receive_message', function(text) {
+		$("#messages").append("<li>"+text+"</li>")
+	});
+	$("#fileInput").change(function(event){
+		file = event.target.files[0];
+		const ex = file.name.split('.')
+		console.log(ex)
+		if(ex[1]=="kwz" || ex[1]=="ppm"){
+			document.getElementById('pp').remove()
+			document.getElementById('watch').style="display:flex"
+			player.open(event.target.files[0])
+			document.getElementById('fileup').style.display='block'
+		}else{
+			alert("無効なファイルです(.kwz or .ppm)")
+		}
+
+	})
+
+	socket.on('end', function(text) {
+		alert('アップロードが完了しました。');
+		location.href="index.html";
+	});
+
+	$("#fileup").click(function(event){
+		upload(file)
+	})
+
+
+	function upload(file){
+		let filer = new FileReader;
+		let sendfile = file;
+		let data = {};
+		filer.readAsBinaryString(sendfile);
+
+		filer.onload = function(event){
+			title = document.getElementById("filetitle").value;
+			data.file = event.target.result;
+			data.name = "uploadfile"
+			uploading.push(data)
+			uploading.push(title)
+			socket.emit('upload',uploading)
+		}
+	}
+	
+        function move(e){
+
+                document.querySelector("body").addEventListener("mousemove", (e) => {
+                    if(movec==true){
+                    console.log(movec)
+                    const mouse = e.pageX
+                    const element = document.querySelector('.Slider__bar')
+                    const rect = element.getBoundingClientRect()
+                    const position = rect.left + window.pageXOffset
+                    const offset = mouse - position
+                    const width = rect.right - rect.left
+                    player.pause();
+                    player.setFrame(Math.round(player.frameCount*(offset / width)))
+                    }
+                })
+                console.log(movec)
+        }
+
+        document.querySelector('.Slider__bar').addEventListener("mousedown", (e) => {
+            
+                    const mouse = e.pageX
+                    const element = document.querySelector('.Slider__bar')
+                    const rect = element.getBoundingClientRect()
+                    const position = rect.left + window.pageXOffset
+                    const offset = mouse - position
+                    const width = rect.right - rect.left
+                    player.pause();
+                    player.setFrame(Math.round(player.frameCount*(offset / width)))
+                    
+            movec=true
+            move(e)
+
+            document.querySelector('body').addEventListener("mouseup", (e) => {
+                movec=false
+                console.log(movec)
+            })
+
+        })
+        
+
+
+        function pla(){
+            if(p == false){
+                document.querySelector('.icofont-ui-play').className="icofont-ui-pause"
+                player.play();
+                p=true;
+                setInterval(() => {
+                    document.querySelector('.Slider__progress').style.width=Math.round(player.currentFrame/(player.frameCount-1)*100)+"%"
+                    document.querySelector('.nowf').innerText=player._frame+"/"+player.frameCount
+                }, 50);
+            }else{
+                document.querySelector('.icofont-ui-pause').className="icofont-ui-play"
+                player.pause();
+                p=false
+
+            }
+        }
+	    console.log(param)
+
+        setTimeout(function(){
+            let met = player.meta
+            document.querySelector('.frame').innerText="フレーム数:"+met.frame_count+"\n"+"FPS:"+player.framerate+"\n"+"作成日:"+met.timestamp
+        },2000)
+            
+	</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+    <head>
+        <meta name="twitter:card" content="player">
+        <meta name="twitter:site" content="pronama">
+        <meta name="twitter:title" content="fliper">
+        <meta name="twitter:player" content="https://pronama.azurewebsites.net/voice/player.php/?no=A015&amp;fc=0">
+        <meta name="twitter:player:height" content="384">
+        <meta name="twitter:player:width" content="512">
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/flipnote.js/dist/flipnote.js"></script>
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/icofont.min.css">
+        <link rel="stylesheet" href="fonts/fontawesome.min.css">
+    </head>
+    <body>
+        <div>
+            <div style="text-align: center;">
+            <canvas id="player-canvas" height="100%"></canvas>
+            <div style="position: absolute;bottom: 5px;width:100%">
+            <div class="Slider Player__progressSlider" style="padding-left:20px;padding-right:20px;">
+                <div class="Slider__bar" style="height:10px; background-color: rgb(207, 207, 207);">
+                    <div class="Slider__progress" style="left: 0px; width: 14.6392%;height:100%;background-color:#fd7e00">
+                    </div>
+                    <div class="Slider__handle" style="left: 14.6392%;">
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left:22px;height:50px;width:100%;display: flex;">
+                <p style="padding-top:4px;"><i class="icofont-ui-play" style="font-size:25px;color:#fd7e00" onclick="pla()"></i></p>
+                <p style="padding-left:10px;padding-top:5px;color:#fd7e00" class="nowf">ページ数</p>
+                <div style="display:flex;">
+                    <p style="padding-top:4px;padding-left:20px;"><i class="fas fa-fast-backward" style="font-size:25px;color:#fd7e00" onclick="player.firstFrame()"></i></p>
+                    <p style="padding-top:5px;padding-left:20px;"><i class="fas fa-step-backward" style="font-size:22px;color:#fd7e00" onclick="player.prevFrame()"></i></p>
+                    <p style="padding-top:5px;padding-left:20px;"><i class="fas fa-step-forward" style="font-size:22px;color:#fd7e00" onclick="player.nextFrame()"></i></p>
+                    <p style="padding-top:4px;padding-left:20px;"><i class="fas fa-fast-forward" style="font-size:25px;color:#fd7e00" onclick="player.lastFrame()"></i></p>
+                </div>
+                
+                
+            </div></div>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        var param = location.search
+        let p = false
+        let movec = false
+        function move(e){
+
+                document.querySelector("body").addEventListener("mousemove", (e) => {
+                    if(movec==true){
+                    console.log(movec)
+                    const mouse = e.pageX
+                    const element = document.querySelector('.Slider__bar')
+                    const rect = element.getBoundingClientRect()
+                    const position = rect.left + window.pageXOffset
+                    const offset = mouse - position
+                    const width = rect.right - rect.left
+                    player.pause();
+                    player.setFrame(Math.round(player.frameCount*(offset / width)))
+                    }
+                })
+                console.log(movec)
+        }
+
+        document.querySelector('.Slider__bar').addEventListener("mousedown", (e) => {
+            
+                    const mouse = e.pageX
+                    const element = document.querySelector('.Slider__bar')
+                    const rect = element.getBoundingClientRect()
+                    const position = rect.left + window.pageXOffset
+                    const offset = mouse - position
+                    const width = rect.right - rect.left
+                    player.pause();
+                    player.setFrame(Math.round(player.frameCount*(offset / width)))
+                    
+            movec=true
+            move(e)
+
+            document.querySelector('body').addEventListener("mouseup", (e) => {
+                movec=false
+                console.log(movec)
+            })
+
+        })
+        
+
+
+        function pla(){
+            if(p == false){
+                document.querySelector('.icofont-ui-play').className="icofont-ui-pause"
+                player.play();
+                p=true;
+                setInterval(() => {
+                    document.querySelector('.Slider__progress').style.width=Math.round(player.currentFrame/(player.frameCount-1)*100)+"%"
+                    document.querySelector('.nowf').innerText=player._frame+"/"+player.frameCount
+                }, 50);
+            }else{
+                document.querySelector('.icofont-ui-pause').className="icofont-ui-play"
+                player.pause();
+                p=false
+
+            }
+        }
+        console.log(param)
+        var player = new flipnote.player("#player-canvas", (window.innerHeight)*1.25,window.innerHeight);
+        player.open("https://f.easyuploader.app/eu-prd/upload/20201222115807_57445355314a4e76526d496451505364.kwz");
+        setTimeout(function(){
+            let met = player.meta
+            
+            document.querySelector('.frame').innerText="フレーム数:"+met.frame_count+"\n"+"FPS:"+player.framerate+"\n"+"作成日:"+met.timestamp
+        },2000)
+            
+    </script>
+</html>

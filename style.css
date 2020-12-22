@@ -1,0 +1,328 @@
+body{
+    background-color:white;
+}
+canvas{
+    background-color:white;
+}
+*{
+    margin:0px;
+    padding:0px;
+    
+}
+
+#urlf{
+  padding:8px;
+  width:70%;
+  border-width:0;
+  border-radius: 5px;
+}
+#urlf::placeholder{
+  text-align:center;
+}
+#filetitle{
+  padding:0px;
+  width:100%;
+  height:10%;
+  border-width:0;
+  font-size: larger;
+  padding: 5px;
+  border-radius: 5px;
+  background-color:rgb(240, 240, 240);
+}
+#filetitle::placeholder{
+  text-align:center;
+  
+}
+#fileup{
+  border-width: 0px;
+  font-size: 25px;
+  margin-top:5px;
+  padding: 5px;
+  color: white;
+  background-color: #6bc639;
+  border-radius: 5px;
+  
+}
+#popup{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 65%;
+  height:40%;
+
+}
+
+#choosefile{
+  text-align: center;
+  color:black;
+  transition-duration: 0.2s;
+}
+#choosefile:hover{
+  color:gray;
+  transition-duration: 0.2s;
+}
+#drop{
+  position: relative;
+  border-radius: 10px 0px 0px 10px;
+  width:50%;
+  height:100%;
+  background: rgb(238,174,202);
+  background: linear-gradient(198deg, rgba(238,174,202,1) 0%, rgba(123,157,198,1) 100%);
+}
+
+#drop h3{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform:translate(-50%,-50%)
+}
+#drop2{
+  width:50%;
+  border-radius: 0px 10px 10px 0px;
+  height:100%;
+  background-color:rgb(221, 221, 221);
+  display: table;
+
+}
+
+#yom{
+  width:60%;
+  height:30%;
+  border: 3px dashed rgba(255, 255, 255, 0.466);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform:translate(-50%,-50%)
+}
+
+a{
+  font-family: 'Sawarabi Gothic', sans-serif;
+}
+
+p{
+  font-family: 'Sawarabi Gothic', sans-serif;
+}
+h1,h2{
+  font-family: 'Sawarabi Gothic', sans-serif;
+}
+
+h3{
+  font-family: 'Sawarabi Gothic', sans-serif;
+  font-weight:normal;
+}
+
+.main{
+    height:100vh;
+}
+.icon{
+    color:white;
+    height:50px;
+    opacity:1;
+    padding:5px 10px;
+    transition-duration: 0.5s;
+}
+
+.icon:hover{
+    opacity:0.5;
+    transition-duration: 0.5s;
+}
+
+#headlist li:hover{
+    opacity:0.5;
+    transition-duration: 0.5s;
+}
+
+#headlist li{
+    opacity:1;
+    transition-duration: 0.5s;
+}
+
+@font-face{
+  font-family: 'nicomoji';
+    src: url(fonts/VAG.ttf);
+}
+
+@font-face {
+  font-family:'icon';
+    src: url(fonts/icofont.ttf);
+    
+}
+
+header {
+    height:50px;
+}
+#titletext{
+    display: inline-block;
+    margin-left: 10px;
+    font-size:30px;
+    
+    align-items: center;
+    
+}
+
+#titletext a{
+    color : rgb(32, 32, 32);
+    font-family: "nicomoji";
+    text-decoration: none;
+}
+
+#headlist{
+    display: inline-block;
+    margin-left: 30px;
+    color:rgb(32, 32, 32);
+}
+#headlist li{
+    display: inline-block; 
+    margin:0px 10px;
+    color:rgb(32, 32, 32);
+    font-size:20px;
+    font-family: 'Sawarabi Gothic', sans-serif;
+}
+
+.toptext {
+    font-family: 'Sawarabi Gothic', sans-serif;
+    font-size:30px;
+}
+
+#headlist li a{
+    color : rgb(32, 32, 32);
+    text-decoration: none;
+}
+#page_top{
+    background-color:#ffffff;
+    background-size: cover;
+    color:black;
+    top:0px;
+    line-height:50px;
+}
+
+header {
+    padding:10px;
+    background: #ccc;
+  }
+  
+  #nav-drawer {
+    position: relative;
+  }
+  
+  /*チェックボックス等は非表示に*/
+  .nav-unshown {
+    display:none;
+  }
+  
+  /*アイコンのスペース*/
+  #nav-open {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    z-index: 3;
+    height: 26px;
+    vertical-align: middle;
+ 
+  }
+  
+  /*ハンバーガーの形をCSSで表現*/
+  #nav-open span{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color:rgb(32, 32, 32);
+  }
+  #nav-open span:nth-of-type(1) {
+    top: -2px;
+    background-color:rgb(32, 32, 32);
+  }
+  #nav-open span:nth-of-type(2) {
+    top: 7px;
+    background-color:rgb(32, 32, 32);
+  }
+  #nav-open span:nth-of-type(3) {
+    top: 16px;
+    background-color:rgb(32, 32, 32);
+  }
+  
+  
+  /*閉じる用の薄黒箇所*/
+  #nav-close {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    transition: .3s ease-in-out;
+  }
+
+  .menuicon{
+    display: inline-block;
+  }
+  #nav-menu{
+    position:absolute;
+    margin:0px 10px;
+    color:black;
+    width:100%;
+    top:50px;
+  }
+  
+  /*メニューの中身*/
+  #nav-content {
+    overflow: auto;
+    position: fixed;
+    line-height:normal;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    max-width: 500px;/*最大幅（お好みで調整を）*/
+    height: 100%;
+    background: white;
+    transition: .3s ease-in-out;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+  }
+
+  /*チェックがついたら表示させる*/
+  #nav-open:hover span{
+    opacity: .5;
+  }
+
+  #nav-input:checked ~ #nav-close {
+
+    display: block;
+    opacity: .5;
+  }
+  #nav-input:checked ~ #nav-open span:nth-of-type(1){
+    background-color:black;
+    transform: translateY(9px) rotate(-45deg);
+    transition: .3s
+  }
+  #nav-input:checked ~ #nav-open span:nth-of-type(2){
+    background-color:black;
+    opacity: 0;
+    transition: .3s
+  }
+  #nav-input:checked ~ #nav-open span:nth-of-type(3){
+    background-color:black;
+    transform: translateY(-9px) rotate(45deg);
+    transition: .3s
+  }
+  #nav-open span {
+    opacity: 1;
+    transition: .5s;
+  }
+
+  #nav-input:checked ~ #nav-content {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    box-shadow: 6px 0 25px rgba(0,0,0,.15);
+  }
+  
+
+  
+  /*ロゴやサイトタイトルをセンタリング*/
+  .logo-area{text-align:center;margin:auto;}

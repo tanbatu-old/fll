@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/flipnote.js/dist/flipnote.js"></script>
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/icofont.min.css">
+        <link rel="stylesheet" href="fonts/fontawesome.min.css">
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <header id="page_top" style="box-shadow:0px 2px 5px 1px gray;">
+            <input id="nav-input" type="checkbox" class="nav-unshown">
+            <label id="nav-open" for="nav-input">
+                <span></span>
+                <span></span>
+                <span></span>
+             </label>
+            <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+            <div id="nav-content">
+                <div id="nav-menu">
+                     <div>
+                         <img class="menuicon" src="../image/MyBeautifulImage.png" style="width:200px;border-radius: 50%;">
+                         <div class="menuicon">
+                             <p style="color:black;font-size:40px;">Flipper</p>
+                             <p style="font-size:18px;">気まぐれで色々作ってます</p>
+                             <a href="https://twitter.com" style="text-decoration: none; color:#2687e8"><p style="font-size:18px;"><span class="icofont-twitter"></span>@tnsbo</p></a>
+                             <a href="https://github.com/nbatotu" style="text-decoration: none; color:#2687e8"><p style="font-size:18px;"><span class="icofont-github"></span>GitHub</p></a>
+                         </div>
+                     </div>
+                </div>
+            </div>
+             <h1 id="titletext"><a href="../index.html">Flipper</a></h1>
+             <ul id="headlist">
+                 <li><a href="../index.html">ホーム</a></li>
+                 <li><a href="upload.html">投稿する</a></li>
+             </ul>
+        </header>
+
+    </body>
+    <script>
+        var param = location.search
+        var socket = io();
+    </script>
+</html>
